@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #populate correct env vars
+#fix this so that you can run it from any directory
 source ../env.sh
 
 #test kafka environment variables
