@@ -1,6 +1,19 @@
 version: '3'
 services:
-  # producer:
+  producer:
+    build: ./producer
+    # image: python
+    command: /wait-for kafka:9092 -- python app.py
+    # command: bash
+    # stdin_open: true
+    volumes:
+      - ./producer:/app
+      - ./wait-for:/wait-for
+    ports:
+      - "5000:80"
+    environment:
+      KAFKA_SERVER: kafka:9092
+      KAFKA_TOPIC_1: foo
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
