@@ -11,7 +11,8 @@ install:
   - docker-compose version
 
 before_script:
-  - source env.sh
+  #populate DOCKER_KAFKA_HOST with the correct ip
+  - ./tests/docker-kafka-host.env.sh
   - docker-compose up -d
 
 script:

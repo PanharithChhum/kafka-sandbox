@@ -14,8 +14,11 @@ hostname = socket.gethostname()
 print("hostname is " + hostname)
 
 #add logic to exit gracefully if Kafka Server is unavailable
-producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER, key_serializer=str.encode)
+# producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER, 
+#                 key_serializer=str.encode,
+#                 value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
+producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER, value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
 app = Flask(__name__)
 
@@ -35,7 +38,11 @@ def hello():
     if request.method == 'POST':
         # redis = get_redis()
         vote = request.form['vote']
-        producer.send(KAFKA_TOPIC_1, key="pan", value="chhum")
+        print("topic is " + KAFKA_TOPIC_1)
+        print("vote is " + vote)
+        # producer.send(KAFKA_TOPIC_1, key="pan", value="vote")
+        producer.send(KAFKA_TOPIC_1, {'foo': 'bar'})
+
         # data = json.dumps({'voter_id': voter_id, 'vote': vote})
         # redis.rpush('votes', data)
 
