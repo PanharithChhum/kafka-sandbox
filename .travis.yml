@@ -12,7 +12,7 @@ install:
 
 before_script:
   #populate DOCKER_KAFKA_HOST with the correct ip
-  - source ./tests/docker-kafka-host.env.sh
+  - source travis_env
   - docker-compose up -d
 
 script:
